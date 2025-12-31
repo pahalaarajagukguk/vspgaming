@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>VOID SPECTRE | ESPORT FREE FIRE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{
+  --black-main:#05000a;
+  --black-soft:#0b0014;
+  --purple-main:#8a00ff;
+  --purple-glow:#b84dff;
+  --purple-dark:#4b0082;
+  --text-main:#ffffff;
+  --text-muted:#bdb2ff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{background: var(--black-main);color: var(--text-main);overflow-x:hidden;scroll-behavior:smooth;}
+img{display:block;max-width:100%;border-radius:8px;transition:0.3s;}
+
+/* NAVIGATION */
+nav{
+  position: fixed;
+  top:0;left:0;right:0;
+  background: rgba(5,0,10,0.95);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 50px;
+  z-index:999;
+  border-bottom:1px solid var(--purple-dark);
+}
+nav img{width:50px;height:50px;}
+nav .nav-links{display:flex;gap:25px;}
+nav .nav-links a{
+  color: var(--text-main);
+  text-decoration:none;
+  font-weight:600;
+  transition:0.3s;
+}
+nav .nav-links a:hover{color: var(--purple-glow);}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero-content{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.hero p{color: var(--text-muted); margin-top:12px;}
+.logo{
+  width:220px;
+  margin-bottom:25px;
+  filter: drop-shadow(0 0 20px #8a00ff);
+  animation: float 3s ease-in-out infinite, glowLogo 2.5s infinite alternate;
+}
+@keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-12px);}100%{transform:translateY(0);}}
+@keyframes glowLogo{from{filter:drop-shadow(0 0 15px #8a00ff);}to{filter:drop-shadow(0 0 40px #b84dff);}}
+
+/* BUBBLE ANIMATION */
+.bubbles{position:absolute;inset:0;overflow:hidden;z-index:1;pointer-events:none;}
+.bubble{position:absolute;width:80px;height:80px;border-radius:50%;background-size:cover;background-position:center;opacity:0.2;transition:0.3s;}
+.bubble:hover{opacity:0.6;transform:scale(1.2);}
+
+/* SECTIONS */
+section{padding:80px 20px;max-width:1200px;margin:auto;position:relative;z-index:2;}
+.title{font-size:2.3rem;margin-bottom:30px;color:var(--purple-glow);border-left:5px solid var(--purple-main);padding-left:15px;text-transform:uppercase;transition:0.4s;}
+.card{
+  background:rgba(10,0,25,0.85);
+  border:1px solid rgba(138,0,255,0.25);
+  border-radius:16px;
+  padding:30px;
+  box-shadow:0 0 30px rgba(138,0,255,0.15);
+  transition:0.4s;
+}
+.card:hover{transform:translateY(-8px);box-shadow:0 0 55px rgba(184,77,255,0.6);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;}
+
+/* ABOUT VSP TWO COLUMNS */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;}
+.about-grid ul{list-style:none;margin-top:10px;}
+.about-grid li{margin-bottom:10px;}
+
+/* MEMBER / PENGURUS */
+.member-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px;
+  background:rgba(10,0,25,0.85);
+  border:1px solid rgba(138,0,255,0.25);
+  border-radius:16px;
+  transition:0.4s;
+  text-align:center;
+}
+.member-card:hover{transform:translateY(-8px);box-shadow:0 0 50px rgba(184,77,255,0.8);}
+.member-card img{
+  border-radius:50%;
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  margin-bottom:15px;
+  transition:0.3s;
+  filter:drop-shadow(0 0 10px #8a00ff);
+}
+.member-card img:hover{filter:drop-shadow(0 0 25px #b84dff) brightness(1.2);}
+.member-card h4{color:var(--purple-glow);margin-bottom:5px;transition:0.3s;}
+.member-card p{color: var(--text-muted);}
+
+/* FOOTER */
+footer{
+  background:var(--black-main);
+  text-align:center;
+  padding:25px;
+  border-top:1px solid var(--purple-dark);
+  color:#888;
+}
+
+/* === PENGURUS LAYOUT FIX === */
+.pengurus-top,
+.pengurus-bottom{
+  display:grid;
+  gap:25px;
+  justify-content:center;
+  margin-bottom:25px;
+}
+
+.pengurus-top{
+  grid-template-columns: repeat(2, minmax(260px, 300px));
+}
+
+.pengurus-bottom{
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .pengurus-bottom{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media(max-width:600px){
+  .pengurus-top,
+  .pengurus-bottom{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   RESPONSIVE FINAL FIX
+========================= */
+
+/* LAPTOP KECIL */
+@media (max-width:1024px){
+  nav{
+    padding:10px 30px;
+  }
+
+  .title{
+    font-size:2rem;
+  }
+}
+
+/* TABLET */
+@media (max-width:768px){
+  /* NAV */
+  nav{
+    padding:10px 20px;
+  }
+
+  nav .nav-links{
+    gap:18px;
+    font-size:0.95rem;
+  }
+
+  /* HERO */
+  .logo{
+    width:180px;
+  }
+
+  /* ABOUT */
+  .about-grid{
+    grid-template-columns:1fr;
+  }
+
+  /* SECTION */
+  section{
+    padding:70px 20px;
+  }
+}
+
+/* MOBILE */
+@media (max-width:480px){
+  body{
+    font-size:14px;
+  }
+
+  /* NAV */
+  nav{
+    padding:10px 15px;
+  }
+
+  nav img{
+    width:40px;
+    height:40px;
+  }
+
+  nav .nav-links{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+    text-align:center;
+  }
+
+  nav .nav-links a{
+    font-size:0.85rem;
+  }
+
+  /* HERO */
+  .hero{
+    height:90vh;
+  }
+
+  .logo{
+    width:150px;
+  }
+
+  /* TITLE */
+  .title{
+    font-size:1.6rem;
+    padding-left:10px;
+    border-left:4px solid var(--purple-main);
+  }
+
+  /* CARD */
+  .card{
+    padding:20px;
+  }
+
+  /* MEMBER CARD */
+  .member-card{
+    padding:15px;
+  }
+
+  .member-card img{
+    width:90px;
+    height:90px;
+  }
+
+  .member-card h4{
+    font-size:0.95rem;
+  }
+
+  .member-card p{
+    font-size:0.85rem;
+  }
+
+  /* GRID GAP */
+  .grid{
+    gap:18px;
+  }
+
+  /* FOOTER */
+  footer{
+    font-size:0.8rem;
+  }
+}
+
+/* HAMBURGER MENU STYLING */
+.hamburger{
+  display:none;
+  flex-direction: column;
+  justify-content: space-between;
+  width:25px;
+  height:20px;
+  cursor:pointer;
+  z-index:1000;
+}
+.hamburger span{
+  display:block;
+  height:3px;
+  width:100%;
+  background: var(--text-main);
+  border-radius:2px;
+  transition:0.3s;
+}
+
+/* SHOW HAMBURGER ON MOBILE */
+@media(max-width:768px){
+  .hamburger{
+    display:flex;
+  }
+  .nav-links{
+    position:fixed;
+    top:0;
+    right:-100%;
+    height:100vh;
+    width:250px;
+    background: var(--black-soft);
+    flex-direction: column;
+    gap:25px;
+    padding-top:100px;
+    text-align:center;
+    transition:0.4s;
+  }
+  .nav-links a{
+    font-size:1.2rem;
+  }
+  .nav-links.active{
+    right:0;
+  }
+}
+
+/* JOIN NOTE */
+.join-note{
+  margin-top:8px;
+  color:var(--text-muted);
+  font-size:0.85rem;
+  letter-spacing:0.5px;
+}
+
+/* PULSE EFFECT */
+.pulse{
+  animation:pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow{
+  0%{box-shadow:0 0 20px rgba(138,0,255,0.6);}
+  50%{box-shadow:0 0 45px rgba(184,77,255,1);}
+  100%{box-shadow:0 0 20px rgba(138,0,255,0.6);}
+}
+
+/* POPUP */
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+}
+
+.popup-content{
+  background:var(--black-soft);
+  padding:30px;
+  border-radius:16px;
+  max-width:400px;
+  width:90%;
+  border:1px solid var(--purple-main);
+  box-shadow:0 0 40px rgba(138,0,255,0.6);
+  text-align:center;
+}
+
+.popup-content h3{
+  color:var(--purple-glow);
+  margin-bottom:15px;
+}
+
+.popup-content ul{
+  list-style:none;
+  text-align:left;
+  margin-bottom:20px;
+}
+
+.popup-content li{
+  margin-bottom:8px;
+  color:var(--text-muted);
+}
+
+.popup-actions{
+  display:flex;
+  gap:15px;
+  justify-content:center;
+}
+
+.popup-actions button{
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.btn-cancel{
+  background:#333;
+  color:#fff;
+}
+
+.btn-join{
+  background:linear-gradient(135deg,var(--purple-main),var(--purple-glow));
+  color:#fff;
+}
+
+.reveal{opacity:0;transform:translateY(50px);transition:1s ease;}
+.reveal.active{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <img src="image-2.png" alt="VSP Logo">
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About VSP</a>
+    <a href="#pengurus">Pengurus</a>
+    <a href="#members">Member</a>
+    <a href="#training">Jadwal Latihan</a>
+    <a href="#prestasi">Prestasi</a>
+  </div>
+  <!-- HAMBURGER ICON -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="bubbles">
+    <div class="bubble" style="background-image:url('images/bg1.png'); top:10%; left:20%; width:80px; height:80px;"></div>
+    <div class="bubble" style="background-image:url('images/bg2.png'); top:50%; left:70%; width:100px; height:100px;"></div>
+    <div class="bubble" style="background-image:url('images/bg3.png'); top:30%; left:40%; width:60px; height:60px;"></div>
+  </div>
+  <div class="hero-content">
+  <img src="image-2.png" alt="Void Spectre Logo" class="logo">
+
+  <!-- JOIN BUTTON -->
+  <button class="join-btn pulse" id="joinBtn">
+    Join Now – Guild FF
+  </button>
+
+  <small class="join-note">
+    Recruitment Open • Slot Terbatas
+  </small>
+</div>
+</div>
+
+<!-- ABOUT VSP -->
+<section id="about" class="reveal">
+  <h2 class="title">Tentang Guild</h2>
+
+  <!-- SEJARAH GUILD -->
+  <div class="card" style="margin-bottom:30px;">
+    <h4>Sejarah Guild VSP FreeFire</h4>
+    <br>
+    <p><strong>Void Spectre</strong>, atau <strong>VSP</strong>, berarti "<em>Bangkit dari kegelapan, bersatu dalam strategi, dan semangat kompetitif</em>". Di dalam game, guild ini fokus pada teamwork, disiplin, dan dominasi dalam pertandingan.</p>
+    <p>Didirikan oleh Kapten <strong>Bang Pall</strong> bersama teman-temannya <strong>Hanz</strong> dan <strong>Nisa</strong> Pada Tanggal <strong>8 Oktober 2025</strong> , mereka mulai mencari anggota untuk membangun komunitas yang solid dan selalu bermain bersama tanpa ada kata bosan karena emang sangat seru gitu dan dimoment itu juga VSP Key bergabung dengan VSP dan dipercayakan menjadi Officer 2.</p>
+    <p>Pada Tanggal <strong>10 November 2025</strong> , Adnan atau lebih dikenal sebagai Nan04 Bergabung dengan guild VSP dan Tanggal <strong>20 November 2025</strong>  Ferr atau dikenal FerrXd Bergabung dengan VSP. Kemudian, VSP menghadapi masalah internal yang hampir membuat guild pecah. Kapten Bang Pall menyusun kembali officer baru Pada tanggal 24 November 2025: <strong>KEY</strong>, <strong>Nan04</strong>, dan <strong>Ferr</strong> dipercayakan untuk menjadi Officer.</p>
+    
+    <p>Beberapa officer mundur karena fokus kerja, lalu pada tanggal <strong>1 Desember 2025</strong>  susunan baru: Kapten <strong>Bang Pall</strong>, <strong>Ferr</strong> sebagai Wakil Kapten, <strong>Nan04</strong> sebagai Officer 1. Pada <strong>12 Desember</strong> ditambahkan officer baru <strong>VSP Aji</strong> & <strong>Franss</strong>. Kemudian pada <strong>18 Desember</strong>, Aji digantikan <strong>Ifoo</strong> sebagai Officer ke-3.</p>
+    
+    <p>Sejak itu, VSP terus berkembang dengan prinsip "<em>Discipline • Strategy • Domination</em>".</p>
+    <p style="margin-top:10px; font-style:italic; color: var(--text-muted);">"Dalam setiap kegelapan, ada cahaya yang memandu kita untuk bangkit lebih kuat."</p>
+  </div>
+
+  <!-- PERATURAN & SYARAT -->
+  <div class="about-grid">
+    <div class="card">
+      <h4 class="title">Peraturan VSP</h4>
+      <ul>
+        <li>1. Latihan wajib & tepat waktu</li>
+        <li>2. Keluar match tanpa izin = sanksi</li>
+        <li>3. Absen 3–4 kali = kick</li>
+        <li>4.  Guild Wars : 150</li>
+        <li>5. Menjaga nama baik VOID SPECTRE</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 class="title">Syarat Masuk VSP</h4>
+      <ul>
+        <li>- Serius dalam latihan & pertandingan</li>
+        <li>- Bersedia ubah nickname atau CN</li>
+        <li>- Mau belajar teamwork & strategi</li>
+        <li>- Bersedia patuh peraturan guild</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PENGURUS -->
+<section id="pengurus" class="reveal">
+  <h2 class="title">Pengurus VSP</h2>
+
+  <!-- BARIS ATAS -->
+  <div class="pengurus-top">
+    <div class="member-card">
+      <img src="Foto Member/Kapten.jpeg" alt="KAPTEN VSP">
+      <h4>ᴋᴀᴘᴛᴇɴㅤㅤVSP</h4>
+      <p>Kapten / Semi Rusher</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/Ferr.jpeg" alt="FerrXd">
+      <h4>FerrXd</h4>
+      <p>Wakil Kapten / Rusher</p>
+    </div>
+  </div>
+
+  <!-- BARIS BAWAH -->
+  <div class="pengurus-bottom">
+    <div class="member-card">
+      <img src="Foto Member/adnan.jpeg" alt="Nan04">
+      <h4>Nan04</h4>
+      <p>Officer 1</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/franss.jpeg" alt="Franss">
+      <h4>Franss</h4>
+      <p>Officer 2</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/Ifoo.jpeg" alt="Ifoo">
+      <h4>Ifoo</h4>
+      <p>Officer 3 / Rusher</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- MEMBERS -->
+<section id="members" class="reveal">
+  <h2 class="title">Member VSP</h2>
+
+  <!-- SEARCH MEMBER -->
+  <input type="text" id="memberSearch" placeholder="Cari member..." style="width:100%;max-width:400px;margin:15px auto 30px;display:block;padding:10px;border-radius:8px;border:none;outline:none;background:rgba(10,0,25,0.85);color:white;font-size:1rem;">
+
+  <div class="grid" id="memberGrid">
+    <!-- Contoh 12 Member pertama -->
+    <div class="member-card">
+      <img src="Foto Member/agan.jpeg" alt="Member1">
+      <h4>VSPメGanź★</h4>
+      <p>Rusher</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/oenix.jpeg" alt="Member2">
+      <h4>VSPメ`ᴏᴇɴɪx࿐</h4>
+      <p>Semi Rusher</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/FremzTzy09.jpeg" alt="Member3">
+      <h4>FremzTzy09 </h4>
+      <p>Rusher</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/zakk.jpeg" alt="Member4">
+      <h4>VSPメZak✓</h4>
+      <p>Rifler</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/Randi.jpeg" alt="Member5">
+      <h4>VSPメAnomali</h4>
+      <p>Rusher</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/Riski.jpeg" alt="Member6">
+      <h4>VSPメʀɪsᴋɪ</h4>
+      <p>Rifer</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/moonton.jpeg" alt="Member7">
+      <h4>VSPメMoonton</h4>
+      <p>Rifler</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/brayen.jpeg" alt="Member8">
+      <h4>VSPメBrayen</h4>
+      <p>Sniper</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/alek.jpeg" alt="Member9">
+      <h4>VSPメAlek</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/Rizz.jpeg" alt="Member10">
+      <h4>VSPメRizz</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/tedy.jpeg" alt="Member11">
+      <h4>VSPメTedy</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card">
+      <img src="Foto Member/gung.jpeg" alt="Member12">
+      <h4>VSPメgung</h4>
+      <p>Support/Rusher</p>
+    </div>
+
+    <!-- MEMBER LAINNYA (HIDDEN) -->
+    <div class="member-card" style="display:none;">
+      <img src="Foto Member/nuro.jpeg" alt="Member13">
+      <h4>VSPメNoru</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card" style="display:none;">
+      <img src="Foto Member/lang.jpeg" alt="Member14">
+      <h4>VSPメLang</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <!-- Tambahkan member lain disini dengan display:none -->
+     <div class="member-card"style="display:none;">
+      <img src="Foto Member/sunoe.jpeg" alt="Member15">
+      <h4>VSPメSuneo</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/rama.jpeg" alt="Member16">
+      <h4>VSPメRama</h4>
+      <p>Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/ilham.jpeg" alt="Member17">
+      <h4>VSPメIlham</h4>
+      <p>Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/aji.jpeg" alt="Member18">
+      <h4>VSPメAji</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/obito.jpeg" alt="Member19">
+      <h4>VSPメObito</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/kiko.jpeg" alt="Member20">
+      <h4>VSPメKiko</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/baksobonb.jpeg" alt="Member21">
+      <h4>VSPメBaksoBomb</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/Pelox.jpeg" alt="Member22">
+      <h4>VSPメPELOX²⁷</h4>
+      <p>Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/zass.jpeg" alt="Member23">
+      <h4>VSPメZass</h4>
+      <p>Support</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/lyis.jpeg" alt="Member24">
+      <h4>VSPメLyis</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/arkan.jpeg" alt="Member25">
+      <h4>YouKnowArkn?</h4>
+      <p>Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/jeluvluv.jpeg" alt="Member26">
+      <h4>Jeluvluv</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/Allin Uhuy.jpeg" alt="Member27">
+      <h4>Allin Uhuy</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/Flux.jpeg" alt="Member28">
+      <h4>VSPメFlux</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/alex.jpeg" alt="Member29">
+      <h4>VSPメAlex</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/kyy.jpeg" alt="Member30">
+      <h4>Kyy'4D</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/Skipper.jpeg" alt="Member31">
+      <h4>Skipper</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/Geeen.jpeg" alt="Member32">
+      <h4>Geeen</h4>
+      <p>Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/Dim.jpeg" alt="Member33">
+      <h4>VSPメDim</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/Ibon.jpeg" alt="Member34">
+      <h4>Ibonn</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/Lionel.jpeg" alt="Member35">
+      <h4>VSPメLionel</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/Penn.jpeg" alt="Member36">
+      <h4>VSPメPenn</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/kiyy.jpeg" alt="Member37">
+      <h4>VSPメkiyy</h4>
+      <p>Support/Rusher</p>
+    </div>
+    <div class="member-card"style="display:none;">
+      <img src="Foto Member/Gatot .jpeg" alt="Member38">
+      <h4>Gatot Bacet</h4>
+      <p>Support/Rusher</p>
+    </div>
+      <div class="member-card"style="display:none;">
+      <img src="Foto Member/mello.jpeg" alt="Member39">
+      <h4>10 Mello</h4>
+      <p>Support/Rusher</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINING -->
+<section id="training" class="reveal">
+  <h2 class="title">Jadwal Latihan</h2>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;">
+    <!-- Minggu 1 -->
+    <div class="card">
+      <h4>Minggu 1</h4>
+      <ul>
+        <li>Senin: BR Mode Solo Sniper</li>
+        <li>Selasa: BR Mode Duo Campur Boys & Girl</li>
+        <li>Rabu: CS Full Pepeng Pisah Boys & Girl</li>
+        <li>Kamis: CS Full Teken Campur Boys & Girl</li>
+      </ul>
+    </div>
+
+    <!-- Minggu 2 -->
+    <div class="card">
+      <h4>Minggu 2</h4>
+      <ul>
+        <li>Senin: BR Mode Duo</li>
+        <li>Selasa: BR Mode Duo</li>
+        <li>Rabu: CS Full Pepeng</li>
+        <li>Kamis: CS Full Teken</li>
+      </ul>
+    </div>
+
+    <!-- Minggu 3 -->
+    <div class="card">
+      <h4>Minggu 3</h4>
+      <ul>
+        <li>Senin: BR Mode Solo Sniper</li>
+        <li>Selasa: BR Mode Duo Campur Boys & Girl</li>
+        <li>Rabu: CS Full Pepeng Pisah Boys & Girl</li>
+        <li>Kamis: CS Full Teken Campur Boys & Girl</li>
+      </ul>
+    </div>
+
+    <!-- Minggu 4 -->
+    <div class="card">
+      <h4>Minggu 4</h4>
+      <ul>
+        <li>Senin: BR Mode Duo</li>
+        <li>Selasa: BR Mode Duo</li>
+        <li>Rabu: CS Full Pepeng</li>
+        <li>Kamis: CS Full Teken</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- PRESTASI -->
+<section id="prestasi" class="reveal">
+  <h2 class="title">Prestasi</h2>
+  <div class="grid">
+    <div class="card">
+      <h4>Juara 3 Turnamen FT 2025</h4>
+      <p>Pemain : FerrXd, Ifoo, Gung dan Rizz</p>
+      <p>Diadakan Oleh : ALDY</p>
+      <p>Tanggal : 30 Desember 2025</p>
+    </div>
+  </div>
+</section>
+
+<div class="popup" id="joinPopup">
+  <div class="popup-content">
+    <h3>Syarat Masuk VSP</h3>
+    <ul>
+      <li>✔ Aktif latihan & mabar</li>
+      <li>✔ Siap teamwork & disiplin</li>
+      <li>✔ Patuh aturan guild</li>
+      <li>✔ Bersedia ganti CN jika diminta</li>
+    </ul>
+
+    <div class="popup-actions">
+      <button class="btn-cancel" id="closePopup">Batal</button>
+      <button class="btn-join" id="confirmJoin">Lanjut Join</button>
+    </div>
+  </div>
+</div>
+
+
+<footer>© 2025 VOID SPECTRE ESPORT</footer>
+
+<script>
+/* SCROLL REVEAL */
+const reveals = document.querySelectorAll('.reveal');
+window.addEventListener('scroll', () => {
+  reveals.forEach(el => {
+    if(el.getBoundingClientRect().top < window.innerHeight - 100){
+      el.classList.add('active');
+    }
+  });
+});
+
+/* BUBBLES MOUSE INTERACTION */
+const bubbles = document.querySelectorAll('.bubble');
+document.addEventListener('mousemove', e => {
+    const x = e.clientX / window.innerWidth;
+    const y = e.clientY / window.innerHeight;
+    bubbles.forEach((b, i) => {
+        const offset = (i + 1)/bubbles.length * 50;
+        b.style.transform = `translate(${x*offset}px, ${y*offset}px) rotate(${i*10}deg)`;
+    });
+
+});
+
+/* TOGGLE HAMBURGER MENU */
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  // Hamburger animation
+  hamburger.classList.toggle('toggle');
+});
+
+const searchInput = document.getElementById('memberSearch');
+const memberCards = document.querySelectorAll('#memberGrid .member-card');
+const defaultVisible = 12; // jumlah member yang ditampilkan awal
+
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+
+  memberCards.forEach((card, index) => {
+    const name = card.querySelector('h4').textContent.toLowerCase();
+    
+    if(query){ // jika ada pencarian
+      if(name.includes(query)){
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    } else { // jika input kosong
+      if(index < defaultVisible){
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    }
+  });
+});
+
+const joinBtn = document.getElementById('joinBtn');
+const popup = document.getElementById('joinPopup');
+const closePopup = document.getElementById('closePopup');
+const confirmJoin = document.getElementById('confirmJoin');
+
+joinBtn.onclick = () => popup.style.display = 'flex';
+closePopup.onclick = () => popup.style.display = 'none';
+
+confirmJoin.onclick = () => {
+  window.open(
+    'https://wa.me/886965733437?text=Halo%20Admin%20VSP,%20saya%20ingin%20bergabung%20dengan%20Guild%20VOID%20SPECTRE',
+    '_blank'
+  );
+};
+
+</script>
+</body>
+</html>
